@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#172657">
+  <meta name="description" content="Encontre produtos no catálogo Temdetudo Atacado. Busque pelo nome ou código e monte sua lista.">
+  <title>Temdetudo Atacado | Catálogo de produtos</title>
+  <link rel="icon" href="assets/logo.webp" type="image/webp">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="wrap nav">
+      <a class="brand" href="#inicio" aria-label="Temdetudo Atacado, início"><img src="assets/logo.webp" alt="Temdetudo Atacado"></a>
+      <nav aria-label="Navegação principal"><a href="#catalogo">Catálogo</a><a href="#sobre">Sobre</a></nav>
+      <button class="list-btn" id="open-list" type="button">Minha lista <span id="list-count">0</span></button>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="wrap hero-layout">
+        <div class="hero-copy">
+          <p class="eyebrow">TEMDETUDO ATACADO · CATÁLOGO DIGITAL</p>
+          <h1>O que você procura, <em>tem de tudo.</em></h1>
+          <p class="lead">Explore milhares de produtos em um só lugar. Encontre pelo nome, pesquise pelo código e organize os seus favoritos.</p>
+          <a class="primary" href="#catalogo">Explorar catálogo</a>
+          <div class="hero-meta"><strong id="total-hero">7.500</strong><span>produtos para conhecer</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="hero-ring"></div><div class="art-tile art-a">Casa & utilidades</div><div class="art-tile art-b">Pet & cuidados</div><div class="art-tile art-c">Jardim & lazer</div><span class="spark s1">✦</span><span class="spark s2">✳</span></div>
+      </div>
+    </section>
+
+    <section class="catalog wrap" id="catalogo">
+      <div class="section-top"><div><p class="eyebrow red">EXPLORE À VONTADE</p><h2>Encontre seu próximo produto</h2><p class="sub">Pesquise por nome ou código no catálogo completo.</p></div><span class="catalog-total" id="result-count"></span></div>
+      <div class="controls"><label class="search-wrap"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="O que você está procurando?" autocomplete="off" aria-label="Pesquisar produtos"></label><select id="sort" aria-label="Ordenar produtos"><option value="name">Nome: A–Z</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option></select></div>
+      <div class="chips" role="group" aria-label="Filtrar produtos"><button class="chip active" data-category="all" type="button">Todos</button><button class="chip" data-category="pet" type="button">Pet</button><button class="chip" data-category="casa" type="button">Casa & utilidades</button><button class="chip" data-category="jardim" type="button">Jardim</button><button class="chip" data-category="ferramentas" type="button">Ferramentas</button><button class="chip" data-category="outros" type="button">Outros</button></div>
+      <div id="products" class="grid" aria-live="polite"></div>
+      <div id="empty" class="empty" hidden><h3>Nenhum produto encontrado</h3><p>Tente outro nome ou pesquise pelo código do item.</p></div>
+      <div class="pagination"><button type="button" id="prev">Anterior</button><span id="page-label"></span><button type="button" id="next">Próxima página</button></div>
+    </section>
+
+    <section class="about" id="sobre"><div class="wrap about-layout"><div><p class="eyebrow">SOBRE O CATÁLOGO</p><h2>Um mundo de opções para o seu negócio.</h2></div><div><p>Reunimos os produtos do catálogo Temdetudo Atacado em uma experiência mais simples de explorar. Pesquise, conheça os itens e monte uma lista para consultar depois.</p><p class="small">Catálogo de preços de 15/11/2026. Valores e disponibilidade podem mudar; confirme as condições diretamente com o fornecedor. A lista fica somente neste navegador e não envia pedidos.</p></div></div></section>
+  </main>
+  <footer><div class="wrap footer-inner"><img src="assets/logo.webp" alt="Temdetudo Atacado"><span>Catálogo digital · 2026</span><a href="#inicio">Voltar ao topo</a></div></footer>
+
+  <dialog id="detail"><button class="close" type="button" data-close="detail" aria-label="Fechar">×</button><div id="detail-content"></div></dialog>
+  <dialog id="list-dialog"><div class="dialog-heading"><div><p class="eyebrow red">SEUS FAVORITOS</p><h2>Minha lista</h2></div><button class="close" type="button" data-close="list-dialog" aria-label="Fechar">×</button></div><p class="list-note">Sua lista é só para consulta e permanece neste navegador.</p><div id="list-items"></div></dialog>
+
+  <script src="data/part01.js"></script>
+  <script src="data/part02.js"></script>
+  <script src="data/part03.js"></script>
+  <script src="data/part04.js"></script>
+  <script src="data/part05.js"></script>
+  <script src="data/part06.js"></script>
+  <script src="data/part07.js"></script>
+  <script src="data/part08.js"></script>
+  <script src="data/part09.js"></script>
+  <script src="data/part10.js"></script>
+  <script src="data/part11.js"></script>
+  <script src="data/part12.js"></script>
+  <script src="data/part13.js"></script>
+  <script src="data/part14.js"></script>
+  <script src="data/part15.js"></script>
+  <script src="data/part16.js"></script>
+  <script src="data/part17.js"></script>
+  <script src="data/part18.js"></script>
+  <script src="data/part19.js"></script>
+  <script src="data/part20.js"></script>
+  <script src="data/part21.js"></script>
+  <script src="data/part22.js"></script>
+  <script src="data/part23.js"></script>
+  <script src="data/part24.js"></script>
+  <script src="data/part25.js"></script>
+  <script src="data/part26.js"></script>
+  <script src="data/part27.js"></script>
+  <script src="data/part28.js"></script>
+  <script src="data/part29.js"></script>
+  <script src="data/part30.js"></script>
+  <script src="logo.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

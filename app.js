@@ -26,7 +26,7 @@
   function money(raw) { return formatter.format(Number(raw.replace(/\./g,'').replace(',','.'))); }
   function price(raw) { return Number(raw.replace(/\./g,'').replace(',','.')); }
   function escapeHTML(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-  function thumbnail(item) { return item[3] ? `<img src="${item[3]}" alt="${escapeHTML(item[1])}" loading="lazy">` : '<span class="placeholder" aria-hidden="true">T</span>'; }
+  function thumbnail(item) { return item[3] ? `<span class="atlas-image" role="img" aria-label="${escapeHTML(item[1])}" style="background-image:url('${item[3]}');background-position:${item[4]/15*100}% ${item[5]/7*100}%"></span>` : '<span class="placeholder" aria-hidden="true">T</span>'; }
   function save() { try { localStorage.setItem('temdetudo-list', JSON.stringify([...selected])); } catch {} $('#list-count').textContent=selected.size; }
   function toggle(code) { selected.has(code) ? selected.delete(code) : selected.add(code); save(); render(); if(listDialog.open) renderList(); }
   function findItem(code) { return products.find(p => p[0]===code); }

@@ -29,10 +29,10 @@
   function escapeHTML(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
   function thumbnail(item) {
     if (!item[3]) return '<span class="placeholder" aria-hidden="true">T</span>';
-    const columns = 16, rows = 8, zoom = 1.08;
+    const columns = 16, rows = 8, zoom = 1.22;
     const x = Number(item[4]) || 0, y = Number(item[5]) || 0;
-    const positionX = x / (columns * zoom - 1) * 100;
-    const positionY = y / (rows * zoom - 1) * 100;
+    const positionX = (x * zoom + (zoom - 1) / 2) / (columns * zoom - 1) * 100;
+    const positionY = (y * zoom + (zoom - 1) / 2) / (rows * zoom - 1) * 100;
     return `<span class="atlas-image" role="img" aria-label="${escapeHTML(item[1])}" style="background-image:url('${item[3]}');background-size:${columns * zoom * 100}% ${rows * zoom * 100}%;background-position:${positionX}% ${positionY}%"></span>`;
   }
   function save() { try { localStorage.setItem('temdetudo-list', JSON.stringify([...selected])); } catch {} $('#list-count').textContent=selected.size; }

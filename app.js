@@ -33,7 +33,7 @@
   function card(item) {
     const [code,name,amount] = item;
     const saved = selected.has(code);
-    return `<article class="card"><div class="thumb">${thumbnail(item)}<span class="code">Cód. ${escapeHTML(code)}</span></div><div class="card-body"><p class="card-category">${labels[group(name)]}</p><h3>${escapeHTML(name)}</h3><p class="price">${money(amount)}</p><div class="card-actions"><button type="button" class="more" data-detail="${code}">Saiba mais</button><button type="button" class="add ${saved?'saved':''}" data-add="${code}" aria-label="${saved?'Remover da lista':'Adicionar à lista'}: ${escapeHTML(name)}" title="${saved?'Remover da lista':'Adicionar à lista'}">${saved?'✓':'+'}</button></div></div></article>`;
+    return `<article class="card"><div class="thumb">${thumbnail(item)}<span class="code">Cód. ${escapeHTML(code)}</span></div><div class="card-body"><p class="card-category">${labels[group(name)]}</p><h3>${escapeHTML(name)}</h3><p class="price">${money(amount)}</p><div class="card-actions"><button type="button" class="more" data-detail="${code}">Saiba mais</button><button type="button" class="add ${saved?'saved':''}" data-add="${code}" aria-label="${saved?'Remover da lista':'Adicionar à lista'}: ${escapeHTML(name)}">${saved?'Na minha lista':'Adicionar à lista'}</button></div></div></article>`;
   }
   function currentItems() {
     const query=search.value.trim().toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -61,6 +61,7 @@
   function renderList() {
     const entries=[...selected].map(findItem).filter(Boolean);
     $('#list-items').innerHTML=entries.length ? entries.map(item=>`<div class="list-row">${thumbnail(item)}<div><strong>${escapeHTML(item[1])}</strong><small>Cód. ${item[0]} · ${money(item[2])}</small></div><button type="button" data-remove="${item[0]}">Remover</button></div>`).join('') : '<p class="empty">Sua lista está vazia. Explore o catálogo e adicione os produtos que gostar.</p>';
+    $('#share-list').disabled=!entries.length;
   }
   grid.addEventListener('click',e=>{const add=e.target.closest('[data-add]'),more=e.target.closest('[data-detail]');if(add)toggle(add.dataset.add);else if(more)showDetail(more.dataset.detail);});
   detail.addEventListener('click',e=>{const add=e.target.closest('[data-add]');if(add){toggle(add.dataset.add);showDetail(add.dataset.add);}});
@@ -68,6 +69,7 @@
   document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>$('#'+btn.dataset.close).close()));
   for(const dialog of [detail,listDialog])dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
   $('#open-list').addEventListener('click',()=>{renderList();listDialog.showModal();});
+  $('#share-list').addEventListener('click',()=>{const entries=[...selected].map(findItem).filter(Boolean);if(!entries.length)return;const lines=entries.map(item=>`• Cód. ${item[0]} — ${item[1]} — ${money(item[2])}`);const message=`Olá! Gostaria de consultar os seguintes produtos da Temdetudo Atacado:\n\n${lines.join('\n')}\n\nPode confirmar preços e disponibilidade?`;window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(message),'_blank','noopener,noreferrer');});
   search.addEventListener('input',()=>{page=1;render();});sort.addEventListener('change',()=>{page=1;render();});
   document.querySelectorAll('.chip').forEach(chip=>chip.addEventListener('click',()=>{document.querySelector('.chip.active')?.classList.remove('active');chip.classList.add('active');category=chip.dataset.category;page=1;render();}));
   $('#prev').addEventListener('click',()=>{if(page>1){page--;render();$('#catalogo').scrollIntoView();}});

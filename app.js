@@ -81,6 +81,16 @@
   $('#prev').addEventListener('click',()=>{if(page>1){page--;render();$('#catalogo').scrollIntoView();}});
   $('#next').addEventListener('click',()=>{page++;render();$('#catalogo').scrollIntoView();});
   $('#total-hero').textContent=products.length.toLocaleString('pt-BR');
+  const showcaseCodes=['19647','7334','4639','12954','1140','198','20858','4527','21537'];
+  const showcaseItems=showcaseCodes.map(findItem).filter(item=>item&&item[3]);
+  let showcaseOffset=0;
+  function renderShowcase(){
+    if(!showcaseItems.length)return;
+    const visible=[0,1,2].map(step=>showcaseItems[(showcaseOffset+step)%showcaseItems.length]);
+    $('#hero-showcase').innerHTML=visible.map((item,index)=>`<div class="showcase-card showcase-${index+1}">${thumbnail(item)}<span>${labels[group(item[1])]}</span></div>`).join('');
+  }
+  renderShowcase();
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches&&showcaseItems.length>3)setInterval(()=>{showcaseOffset=(showcaseOffset+3)%showcaseItems.length;renderShowcase();},4800);
   if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     const revealTargets=document.querySelectorAll('.section-top,.controls,.chips,.pagination,.footer-grid,.footer-bottom');
     const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}}),{threshold:.12,rootMargin:'0px 0px -35px'});

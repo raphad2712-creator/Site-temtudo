@@ -31,10 +31,10 @@
   function save() { try { localStorage.setItem('temdetudo-list', JSON.stringify([...selected])); } catch {} $('#list-count').textContent=selected.size; }
   function toggle(code) { selected.has(code) ? selected.delete(code) : selected.add(code); save(); render(); if(listDialog.open) renderList(); }
   function findItem(code) { return products.find(p => p[0]===code); }
-  function card(item) {
+  function card(item,index) {
     const [code,name,amount] = item;
     const saved = selected.has(code);
-    return `<article class="card"><div class="thumb">${thumbnail(item)}<span class="code">Cód. ${escapeHTML(code)}</span></div><div class="card-body"><p class="card-category">${labels[group(name)]}</p><h3>${escapeHTML(name)}</h3><p class="price">${money(amount)}</p><div class="card-actions"><button type="button" class="more" data-detail="${code}">Saiba mais</button><button type="button" class="add ${saved?'saved':''}" data-add="${code}" aria-label="${saved?'Remover da lista':'Adicionar à lista'}: ${escapeHTML(name)}">${saved?'Na minha lista':'Adicionar à lista'}</button></div></div></article>`;
+    return `<article class="card" style="--card-delay:${Math.min(index%PER_PAGE,14)*32}ms"><div class="thumb">${thumbnail(item)}<span class="code">Cód. ${escapeHTML(code)}</span></div><div class="card-body"><p class="card-category">${labels[group(name)]}</p><h3>${escapeHTML(name)}</h3><p class="price">${money(amount)}</p><div class="card-actions"><button type="button" class="more" data-detail="${code}">Saiba mais</button><button type="button" class="add ${saved?'saved':''}" data-add="${code}" aria-label="${saved?'Remover da lista':'Adicionar à lista'}: ${escapeHTML(name)}">${saved?'Na minha lista':'Adicionar à lista'}</button></div></div></article>`;
   }
   function currentItems() {
     const query=search.value.trim().toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -81,5 +81,10 @@
   $('#prev').addEventListener('click',()=>{if(page>1){page--;render();$('#catalogo').scrollIntoView();}});
   $('#next').addEventListener('click',()=>{page++;render();$('#catalogo').scrollIntoView();});
   $('#total-hero').textContent=products.length.toLocaleString('pt-BR');
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const revealTargets=document.querySelectorAll('.section-top,.controls,.chips,.pagination,.footer-grid,.footer-bottom');
+    const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}}),{threshold:.12,rootMargin:'0px 0px -35px'});
+    revealTargets.forEach(target=>{target.classList.add('reveal-section');revealObserver.observe(target);});
+  }
   save();render();
 })();

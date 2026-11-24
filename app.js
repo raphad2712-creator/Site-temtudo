@@ -6,6 +6,7 @@
   const search = $('#search');
   const sort = $('#sort');
   const detail = $('#detail');
+  const imageViewer = $('#image-viewer');
   const listDialog = $('#list-dialog');
   const PER_PAGE = 24;
   const formatter = new Intl.NumberFormat('pt-BR', {style:'currency',currency:'BRL'});
@@ -55,8 +56,13 @@
   }
   function showDetail(code) {
     const item=findItem(code); if(!item)return;
-    $('#detail-content').innerHTML=`<div class="detail-photo">${thumbnail(item)}</div><p class="card-category">${labels[group(item[1])]}</p><h2 class="detail-title">${escapeHTML(item[1])}</h2><p class="detail-code">Código ${escapeHTML(code)}</p><p class="detail-price">${money(item[2])}</p><p class="detail-description">${escapeHTML(window.productDescription(item))}</p><button type="button" class="detail-add" data-add="${code}">${selected.has(code)?'Remover da minha lista':'Adicionar à minha lista'}</button>`;
+    $('#detail-content').innerHTML=`<div class="detail-photo">${thumbnail(item)}</div><p class="card-category">${labels[group(item[1])]}</p><h2 class="detail-title">${escapeHTML(item[1])}</h2><p class="detail-code">Código ${escapeHTML(code)}</p><p class="detail-price">${money(item[2])}</p><p class="detail-description">${escapeHTML(window.productDescription(item))}</p><button type="button" class="view-image" data-full="${code}">Ver imagem inteira</button><button type="button" class="detail-add" data-add="${code}">${selected.has(code)?'Remover da minha lista':'Adicionar à minha lista'}</button>`;
     detail.showModal();
+  }
+  function showFullImage(code) {
+    const item=findItem(code); if(!item)return;
+    $('#full-image').innerHTML=thumbnail(item);
+    imageViewer.showModal();
   }
   function renderList() {
     const entries=[...selected].map(findItem).filter(Boolean);
@@ -64,10 +70,10 @@
     $('#share-list').disabled=!entries.length;
   }
   grid.addEventListener('click',e=>{const add=e.target.closest('[data-add]'),more=e.target.closest('[data-detail]');if(add)toggle(add.dataset.add);else if(more)showDetail(more.dataset.detail);});
-  detail.addEventListener('click',e=>{const add=e.target.closest('[data-add]');if(add){toggle(add.dataset.add);showDetail(add.dataset.add);}});
+  detail.addEventListener('click',e=>{const full=e.target.closest('[data-full]'),add=e.target.closest('[data-add]');if(full)showFullImage(full.dataset.full);else if(add){toggle(add.dataset.add);showDetail(add.dataset.add);}});
   $('#list-items').addEventListener('click',e=>{const remove=e.target.closest('[data-remove]');if(remove)toggle(remove.dataset.remove);});
   document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>$('#'+btn.dataset.close).close()));
-  for(const dialog of [detail,listDialog])dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+  for(const dialog of [detail,listDialog,imageViewer])dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
   $('#open-list').addEventListener('click',()=>{renderList();listDialog.showModal();});
   $('#share-list').addEventListener('click',()=>{const entries=[...selected].map(findItem).filter(Boolean);if(!entries.length)return;const lines=entries.map(item=>`• Cód. ${item[0]} — ${item[1]} — ${money(item[2])}`);const message=`Olá! Gostaria de consultar os seguintes produtos da Temdetudo Atacado:\n\n${lines.join('\n')}\n\nPode confirmar preços e disponibilidade?`;window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(message),'_blank','noopener,noreferrer');});
   search.addEventListener('input',()=>{page=1;render();});sort.addEventListener('change',()=>{page=1;render();});

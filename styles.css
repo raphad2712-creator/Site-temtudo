@@ -20,3 +20,20 @@
 @keyframes wordFloat{0%,100%{transform:rotate(-10deg) translateY(0)}50%{transform:rotate(-8deg) translateY(-9px)}}@keyframes showcaseEnter{from{opacity:0;transform:translateY(18px) scale(.88) rotate(var(--tilt))}to{opacity:1;transform:translateY(0) scale(1) rotate(var(--tilt))}}@keyframes showcaseFloat{0%,100%{transform:translateY(0) rotate(var(--tilt))}50%{transform:translateY(-15px) rotate(calc(var(--tilt) + 2deg))}}@keyframes marqueeFlow{to{transform:translateX(-50%)}}
 @media(max-width:950px){.hero-word{left:8%;font-size:110px}.showcase-card{width:108px}.showcase-card .atlas-image{width:92px}.showcase-1{left:0}.showcase-2{right:-2%}.showcase-3{right:7%}}
 @media(max-width:700px){.hero-word{left:28%;top:31%;font-size:82px;text-shadow:7px 9px 0 #101d44}.showcase-card{width:84px;padding:5px 5px 7px;border-radius:11px}.showcase-card .atlas-image{width:72px;border-radius:7px}.showcase-card span{font-size:8px}.showcase-1{left:1%;top:10%}.showcase-2{right:1%;top:8%}.showcase-3{right:14%;bottom:2%}.footer-marquee span{padding:12px 0;font-size:11px}.footer-marquee i{margin:0 13px}}
+
+
+/* Cleaner product photography: isolates each atlas cell and gives every item a consistent frame. */
+.thumb{height:238px;padding:13px;background:radial-gradient(circle at 50% 38%,#fff 0 47%,#f3f6fb 100%)}
+.thumb .atlas-image{width:min(100%,212px);border:1px solid #edf0f5;border-radius:16px;box-shadow:0 12px 28px #17265712;filter:brightness(1.055) contrast(1.045) saturate(1.075);transition:transform .28s ease,box-shadow .28s ease}
+.card:hover .thumb .atlas-image{transform:scale(1.035);box-shadow:0 16px 32px #1726571c}
+.detail-photo{height:390px;padding:22px;background:radial-gradient(circle at 50% 42%,#fff 0 52%,#f2f5fa 100%)}
+.detail-photo .atlas-image{width:min(100%,330px);border:1px solid #edf0f5;border-radius:18px;box-shadow:0 18px 40px #17265717;filter:brightness(1.055) contrast(1.045) saturate(1.075)}
+.full-image .atlas-image{width:min(100%,680px);border:1px solid #edf0f5;box-shadow:0 22px 55px #1726571f;filter:brightness(1.055) contrast(1.045) saturate(1.075)}
+.showcase-card .atlas-image{filter:brightness(1.055) contrast(1.045) saturate(1.075)}
+@media(max-width:700px){
+  .thumb{height:178px;padding:10px}
+  .thumb .atlas-image{width:min(100%,158px);border-radius:12px}
+  .detail-photo{height:310px;padding:15px}
+  .detail-photo .atlas-image{width:min(100%,270px)}
+}
+@media(prefers-reduced-motion:reduce){.thumb .atlas-image{transition:none}.card:hover .thumb .atlas-image{transform:none}}

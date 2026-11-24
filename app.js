@@ -56,7 +56,7 @@
   }
   function showDetail(code) {
     const item=findItem(code); if(!item)return;
-    $('#detail-content').innerHTML=`<div class="detail-photo">${thumbnail(item)}</div><p class="card-category">${labels[group(item[1])]}</p><h2 class="detail-title">${escapeHTML(item[1])}</h2><p class="detail-code">Código ${escapeHTML(code)}</p><p class="detail-price">${money(item[2])}</p><p class="detail-description">${escapeHTML(window.productDescription(item))}</p><button type="button" class="view-image" data-full="${code}">Ver imagem inteira</button><button type="button" class="detail-add" data-add="${code}">${selected.has(code)?'Remover da minha lista':'Adicionar à minha lista'}</button>`;
+    $('#detail-content').innerHTML=`<div class="detail-photo">${thumbnail(item)}<button type="button" class="image-expand" data-full="${code}" aria-label="Ampliar imagem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button></div><p class="card-category">${labels[group(item[1])]}</p><h2 class="detail-title">${escapeHTML(item[1])}</h2><p class="detail-code">Código ${escapeHTML(code)}</p><p class="detail-price">${money(item[2])}</p><p class="detail-description">${escapeHTML(window.productDescription(item))}</p><button type="button" class="detail-add" data-add="${code}">${selected.has(code)?'Remover da minha lista':'Adicionar à minha lista'}</button>`;
     detail.showModal();
   }
   function showFullImage(code) {
